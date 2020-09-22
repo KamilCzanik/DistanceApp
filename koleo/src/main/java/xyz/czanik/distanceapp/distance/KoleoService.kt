@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
-internal interface KoleoStationsService {
+internal interface KoleoService {
 
     @Headers("X-KOLEO-Version: 1")
     @GET("stations")

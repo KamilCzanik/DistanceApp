@@ -6,16 +6,16 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import io.reactivex.rxjava3.subjects.SingleSubject
 import org.junit.Test
-import xyz.czanik.distanceapp.entities.Location
+import xyz.czanik.distanceapp.entities.Keyword
 import xyz.czanik.distanceapp.entities.Station
 
-class StationsRepositoryTest {
+class KeywordsRepositoryTest {
 
-    private val koleoStationsSubject = SingleSubject.create<List<KoleoStation>>()
+    private val koleoStationsSubject = SingleSubject.create<List<KoleoKeyword>>()
     private val service: KoleoService = mock {
-        on { allStations() } doReturn koleoStationsSubject
+        on { allKeywords() } doReturn koleoStationsSubject
     }
-    private val repository = StationsRepository(service)
+    private val repository = KeywordsRepository(service)
 
     @Test
     fun `test repository does NOT interact with service`() {
@@ -25,17 +25,14 @@ class StationsRepositoryTest {
     @Test
     fun `test repository interacts with service after get call`() {
         repository.get().test()
-        verify(service).allStations()
+        verify(service).allKeywords()
     }
 
     @Test
     fun `test repository maps response to domain Stations`() {
         val repositoryTester = repository.get().test()
         koleoStationsSubject.onSuccess(stubResponse())
-        val expected = listOf(
-            Station(Station.Id(1), Station.Name("Warszawa Gdanska"), Location(2f, 3f), 1),
-            Station(Station.Id(2), Station.Name("Warszawa Centralna"), Location(3f, 4f), 2)
-        )
+        val expected = listOf(Keyword(Station.Id(1), "gdanska"), Keyword(Station.Id(2), "centralna"))
         repositoryTester.assertValue(expected)
     }
 
@@ -47,8 +44,8 @@ class StationsRepositoryTest {
         repositoryTester.assertError(error)
     }
 
-    private fun stubResponse(): List<KoleoStation> = listOf(
-        KoleoStation(1, "Warszawa Gdanska", 2f, 3f, 1),
-        KoleoStation(2, "Warszawa Centralna", 3f, 4f, 2)
+    private fun stubResponse(): List<KoleoKeyword> = listOf(
+        KoleoKeyword(1, "gdanska"),
+        KoleoKeyword(2, "centralna")
     )
 }

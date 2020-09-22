@@ -6,17 +6,17 @@ import xyz.czanik.distanceapp.entities.Location
 import xyz.czanik.distanceapp.entities.Station
 
 internal class StationsRepository(
-    private val koleoStationsService: KoleoStationsService
+    private val koleoService: KoleoService
 ) : Repository<List<Station>> {
 
-    override fun get(): Single<List<Station>> = koleoStationsService.allStations().map(::toDomainStations)
+    override fun get(): Single<List<Station>> = koleoService.allStations().map(::toDomainStations)
 
-    private fun toDomainStations(stations: List<KoleoStation>): List<Station> = stations.map(::toDomainStation)
+    private fun toDomainStations(koleoStations: List<KoleoStation>): List<Station> = koleoStations.map(::toDomainStation)
 
-    private fun toDomainStation(it: KoleoStation): Station = Station(
-        Station.Id(it.id),
-        Station.Name(it.name),
-        Location(it.latitude, it.longitude),
-        it.hits
+    private fun toDomainStation(koleoStation: KoleoStation): Station = Station(
+        Station.Id(koleoStation.id),
+        Station.Name(koleoStation.name),
+        Location(koleoStation.latitude, koleoStation.longitude),
+        koleoStation.hits
     )
 }

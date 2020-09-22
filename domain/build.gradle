@@ -6,6 +6,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //common
     implementation reactive.rxkotlin
+    //common tests
+    testImplementation unit_tests.junit
+    testImplementation unit_tests.mockito
 }
 
 sourceCompatibility = "1.7"

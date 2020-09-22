@@ -10,6 +10,10 @@ dependencies {
     //common tests
     testImplementation unit_tests.junit
     testImplementation unit_tests.mockito
+    //http
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
 }
 
 sourceCompatibility = "1.7"

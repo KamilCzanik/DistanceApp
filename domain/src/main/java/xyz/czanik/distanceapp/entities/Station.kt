@@ -7,7 +7,7 @@ data class Station(
     val hits: Int
 ) {
 
-    data class Id(val value: String)
+    data class Id(val value: Int)
 
     data class Name(val value: String)
 }

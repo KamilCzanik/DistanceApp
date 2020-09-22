@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">DistanceApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="starting_station_input_hint">Starting station</string>
+    <string name="final_station_input_hint">Final station</string>
+    <string name="calculate_distance_toolbar_title">Calculate distance</string>
+    <string name="calculate_distance_button">Calculate</string>
 </resources>

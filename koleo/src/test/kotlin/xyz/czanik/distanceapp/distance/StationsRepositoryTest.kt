@@ -12,7 +12,7 @@ import xyz.czanik.distanceapp.entities.Station
 class StationsRepositoryTest {
 
     private val koleoStationsSubject = SingleSubject.create<List<KoleoStation>>()
-    private val service: KoleoStationsService = mock {
+    private val service: KoleoService = mock {
         on { allStations() } doReturn koleoStationsSubject
     }
     private val repository = StationsRepository(service)

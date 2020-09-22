@@ -1,0 +1,8 @@
+ext {
+    versions = [
+            rxkotlin_version: "3.0.0"
+    ]
+    reactive = [
+            rxkotlin: "io.reactivex.rxjava3:rxkotlin:${versions.rxkotlin_version}"
+    ]
+}

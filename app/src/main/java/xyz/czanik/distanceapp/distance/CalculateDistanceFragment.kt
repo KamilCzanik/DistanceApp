@@ -15,10 +15,4 @@ class CalculateDistanceFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_calculate_distance, container, false)
     }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) = CalculateDistanceFragment()
-    }
 }

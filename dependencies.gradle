@@ -1,0 +1,15 @@
+ext {
+    versions = [
+            rxkotlin_version: "3.0.0",
+            junit_version   : "4.12",
+            mockito_version : "2.2.0"
+    ]
+    reactive = [
+            rxkotlin: "io.reactivex.rxjava3:rxkotlin:${versions.rxkotlin_version}"
+    ]
+
+    unit_tests = [
+            junit  : "junit:junit:${versions.junit_version}",
+            mockito: "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockito_version}"
+    ]
+}

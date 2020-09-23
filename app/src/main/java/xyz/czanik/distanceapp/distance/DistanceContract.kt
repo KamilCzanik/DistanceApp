@@ -1,10 +1,8 @@
 package xyz.czanik.distanceapp.distance
 
-import xyz.czanik.distanceapp.entities.Station
-
 interface DistanceContract {
 
-    data class StationViewModel(val stationId: Station.Id, val name: String)
+    data class StationViewModel(val stationId: Int, val name: String)
 
     data class Query(val value: String)
 

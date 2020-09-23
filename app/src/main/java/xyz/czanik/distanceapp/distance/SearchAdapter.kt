@@ -31,7 +31,7 @@ class SearchAdapter(
 
     override fun getItem(position: Int): Any = items[position].name
 
-    override fun getItemId(position: Int): Long = items[position].stationId.value.toLong()
+    override fun getItemId(position: Int): Long = items[position].stationId.toLong()
 
     override fun getCount(): Int = items.size
 

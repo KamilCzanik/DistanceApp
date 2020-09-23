@@ -33,8 +33,8 @@ class StationsRepositoryTest {
         val repositoryTester = repository.get().test()
         koleoStationsSubject.onSuccess(stubResponse())
         val expected = listOf(
-            Station(Station.Id(1), Station.Name("Warszawa Gdanska"), Location(2f, 3f), 1),
-            Station(Station.Id(2), Station.Name("Warszawa Centralna"), Location(3f, 4f), 2)
+            Station(Station.Id(1), Station.Name("Warszawa Gdanska"), Location(2.0, 3.0), 1),
+            Station(Station.Id(2), Station.Name("Warszawa Centralna"), Location(3.0, 4.0), 2)
         )
         repositoryTester.assertValue(expected)
     }
@@ -48,7 +48,7 @@ class StationsRepositoryTest {
     }
 
     private fun stubResponse(): List<KoleoStation> = listOf(
-        KoleoStation(1, "Warszawa Gdanska", 2f, 3f, 1),
-        KoleoStation(2, "Warszawa Centralna", 3f, 4f, 2)
+        KoleoStation(1, "Warszawa Gdanska", 2.0, 3.0, 1),
+        KoleoStation(2, "Warszawa Centralna", 3.0, 4.0, 2)
     )
 }

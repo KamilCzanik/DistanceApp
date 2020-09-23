@@ -15,9 +15,9 @@ import xyz.czanik.distanceapp.entities.Station.Name
 internal class GetStationsUseCaseTest {
 
     private val stations = listOf(
-        Station(Id(1), Name("Warszawa Gdanska"), Location(1f, 1f), 1),
-        Station(Id(2), Name("Warszawa Centralna"), Location(2f, 2f), 2),
-        Station(Id(3), Name("Warszawa Praga"), Location(3f, 3f), 3)
+        Station(Id(1), Name("Warszawa Gdanska"), Location(1.0, 1.0), 1),
+        Station(Id(2), Name("Warszawa Centralna"), Location(2.0, 2.0), 2),
+        Station(Id(3), Name("Warszawa Praga"), Location(3.0, 3.0), 3)
     )
     private val stationsSubject = SingleSubject.create<List<Station>>()
     private val repository: Repository<List<Station>> = mock {

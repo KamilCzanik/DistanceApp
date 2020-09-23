@@ -4,6 +4,7 @@ apply plugin: 'kotlin'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.github.grumlimited:geocalc:0.5.8'
     //common
     implementation reactive.rxkotlin
     //common tests

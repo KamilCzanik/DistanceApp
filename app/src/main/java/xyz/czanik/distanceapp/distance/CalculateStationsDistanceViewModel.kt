@@ -14,6 +14,7 @@ import xyz.czanik.distanceapp.entities.Distance
 import xyz.czanik.distanceapp.entities.DistanceUnit
 import xyz.czanik.distanceapp.entities.Station
 import xyz.czanik.distanceapp.util.Optional
+import xyz.czanik.distanceapp.util.roundOffDecimal
 
 class CalculateStationsDistanceViewModel(
     private val source: DistanceContract.StationSearchablesSource,
@@ -54,9 +55,11 @@ class CalculateStationsDistanceViewModel(
         locationFor(optionalEndId.requireValue())
     )
 
-    private fun toDistanceViewModel(response: CalculateDistanceResponse) = DistanceViewModel(response.distance.asKilometers())
+    private fun toDistanceViewModel(response: CalculateDistanceResponse) = DistanceViewModel(
+        response.distance.asKilometers().roundOffDecimal().toFloat()
+    )
 
-    private fun Distance.asKilometers() = if (unit == DistanceUnit.Kilometer) value.toFloat() else value.toFloat() / 1000
+    private fun Distance.asKilometers() = if (unit == DistanceUnit.Kilometer) value else value / 1000
 
     private fun List<StationSearchable>.locationFor(startId: Station.Id) = first { it.station.id == startId }.station.location
 }

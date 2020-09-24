@@ -10,6 +10,7 @@
             name="calculateDistanceViewModel"
             type="xyz.czanik.distanceapp.distance.DistanceContract.CalculateDistanceViewModel"
             />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,15 +84,28 @@
             app:layout_constraintTop_toBottomOf="@id/appbar"
             />
 
-        <TextView
-            android:id="@+id/distance"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{calculateDistanceViewModel.distance.distanceInKilometers == null ? null : @string/distance_in_kilometers(calculateDistanceViewModel.distance.distanceInKilometers).toString()}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inputFlow"
-            />
+            android:visibility="@{calculateDistanceViewModel.distance.distanceInKilometers == null ? View.GONE : View.VISIBLE}"
+            android:layout_margin="16dp"
+            >
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.DistanceApp.TextView.DistanceValue"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:text="@{calculateDistanceViewModel.distance.distanceInKilometers == null ? null : @string/distance_in_kilometers(calculateDistanceViewModel.distance.distanceInKilometers).toString()}"
+                tools:text="123 km"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

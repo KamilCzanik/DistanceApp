@@ -6,9 +6,9 @@ import io.reactivex.rxjava3.kotlin.Observables
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import xyz.czanik.distanceapp.UseCase
-import xyz.czanik.distanceapp.distance.DistanceContract.Query
-import xyz.czanik.distanceapp.distance.DistanceContract.Result
 import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel
+import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel.Query
+import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel.Result
 import xyz.czanik.distanceapp.distance.DistanceContract.StationViewModel
 import xyz.czanik.distanceapp.entities.Keyword
 import xyz.czanik.distanceapp.entities.Station
@@ -35,7 +35,7 @@ class StationsDistanceViewModel(
     override fun search(query: Query): Result? = stationsToKeywordsSubject.value
             ?.filter { it.second.value.contains(query.value, ignoreCase = true) }
             ?.map { StationViewModel(it.first.id.value, it.first.name.value) }
-            ?.let(DistanceContract::Result)
+            ?.let(SearchViewModel::Result)
 
     override fun onCleared() = disposables.dispose()
 

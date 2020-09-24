@@ -13,7 +13,6 @@ internal class KeywordsRepository(
     override fun get(): Single<List<Keyword>> = koleoService
             .allKeywords()
             .subscribeOn(Schedulers.io())
-            //.map { it.take(100) }
             .map(::toDomainKeywords)
 
     private fun toDomainKeywords(koleoKeywords: List<KoleoKeyword>): List<Keyword> = koleoKeywords.map(::toDomainKeyword)

@@ -11,8 +11,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import xyz.czanik.distanceapp.UseCase
-import xyz.czanik.distanceapp.distance.DistanceContract.Query
-import xyz.czanik.distanceapp.distance.DistanceContract.Result
+import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel.Query
+import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel.Result
 import xyz.czanik.distanceapp.distance.DistanceContract.StationViewModel
 import xyz.czanik.distanceapp.entities.Keyword
 import xyz.czanik.distanceapp.entities.Location

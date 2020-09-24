@@ -7,8 +7,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.core.util.Consumer
-import xyz.czanik.distanceapp.distance.DistanceContract.Query
 import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel
+import xyz.czanik.distanceapp.distance.DistanceContract.SearchViewModel.Query
 import xyz.czanik.distanceapp.distance.DistanceContract.StationViewModel
 
 class SearchAdapter(
@@ -44,7 +44,7 @@ class SearchAdapter(
                 .search(Query(query.toStringOrEmpty()))
                 .let(::toFilterResult)
 
-        private fun toFilterResult(result: DistanceContract.Result?) = FilterResults().run {
+        private fun toFilterResult(result: SearchViewModel.Result?) = FilterResults().run {
             values = result?.value
             count = result?.value?.size ?: 0
             this

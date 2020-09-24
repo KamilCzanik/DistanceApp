@@ -1,11 +1,8 @@
 package xyz.czanik.distanceapp.distance
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.Observables
-import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import xyz.czanik.distanceapp.UseCase
@@ -25,12 +22,11 @@ class StationsDistanceViewModel(
     getStationsUseCase: UseCase<GetStationsRequest, GetStationsResponse>,
     getKeywordsUseCase: UseCase<GetKeywordsRequest, GetKeywordsResponse>,
     private val calculateDistanceUseCase: UseCase<CalculateDistanceRequest, CalculateDistanceResponse>
-) : ViewModel(), SearchViewModel, CalculateDistanceViewModel {
+) : RxViewModel(), SearchViewModel, CalculateDistanceViewModel {
 
     private val stationsToKeywordsSubject = BehaviorSubject.create<List<Pair<Station, Keyword>>>()
     private val startStation = PublishSubject.create<Optional<Station.Id>>()
     private val endStation = PublishSubject.create<Optional<Station.Id>>()
-    private val disposables = CompositeDisposable()
     override val distance = MutableLiveData<DistanceViewModel>(DistanceViewModel(null))
 
     init {
@@ -41,20 +37,26 @@ class StationsDistanceViewModel(
         )
                 .retry()
                 .subscribe(stationsToKeywordsSubject::onNext, ::handleError)
-                .addTo(disposables)
+                .manage()
         Observables.combineLatest(
             startStation.distinctUntilChanged(),
             endStation.distinctUntilChanged(),
             stationsToKeywordsSubject
         ).switchMapSingle { (optionalStartId, optionalEndId, stationsToKeywords) ->
-            if (optionalStartId.hasValue().not() || optionalEndId.hasValue().not())
-                Single.just(DistanceViewModel(null))
-            else
-                calculateDistance(stationsToKeywords, optionalStartId, optionalEndId)
+            toDistance(optionalStartId, optionalEndId, stationsToKeywords)
         }
                 .subscribe(distance::postValue, ::handleError)
-                .addTo(disposables)
+                .manage()
     }
+
+    private fun toDistance(
+        optionalStartId: Optional<Station.Id>,
+        optionalEndId: Optional<Station.Id>,
+        stationsToKeywords: List<Pair<Station, Keyword>>
+    ) = if (optionalStartId.hasValue().not() || optionalEndId.hasValue().not())
+        Single.just(DistanceViewModel(null))
+    else
+        calculateDistance(stationsToKeywords, optionalStartId, optionalEndId)
 
     private fun calculateDistance(
         stationsToKeywords: List<Pair<Station, Keyword>>,
@@ -84,8 +86,6 @@ class StationsDistanceViewModel(
             ?.map { StationViewModel(it.first.id.value, it.first.name.value) }
             ?.let(SearchViewModel::Result)
 
-    override fun onCleared() = disposables.dispose()
-
     override fun startStationSelected(id: Station.Id?) = startStation.onNext(Optional.ofNullable(id))
 
     override fun endStationSelected(id: Station.Id?) = endStation.onNext(Optional.ofNullable(id))
@@ -96,6 +96,5 @@ class StationsDistanceViewModel(
     ): List<Pair<Station, Keyword>> = stationsResponse.stations.map { station ->
         station to keywordsResponse.keywords.first { it.stationId == station.id }
     }
-
-    private fun handleError(error: Throwable) = println("PrintingError $error")
 }
+

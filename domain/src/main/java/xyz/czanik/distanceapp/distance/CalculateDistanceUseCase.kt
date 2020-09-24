@@ -15,9 +15,9 @@ data class CalculateDistanceResponse(val distance: Distance)
 
 class CalculateDistanceUseCase : UseCase<CalculateDistanceRequest, CalculateDistanceResponse> {
 
-    override fun invoke(request: CalculateDistanceRequest): Single<CalculateDistanceResponse> = Single.fromCallable {
+    override fun invoke(request: CalculateDistanceRequest): Single<CalculateDistanceResponse> = Single.just(
         CalculateDistanceResponse(distance(request.from, request.to))
-    }
+    )
 
     private fun distance(from: Location, to: Location) = Distance(
         EarthCalc.harvesineDistance(from.asPoint(), to.asPoint()),

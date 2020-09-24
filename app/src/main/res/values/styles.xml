@@ -6,8 +6,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/Widget.DistanceApp.Toolbar</item>
+        <item name="materialCardViewStyle">@style/Widget.DistanceApp.CardView</item>
     </style>
 
     <style name="Widget.DistanceApp.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
+
+    <style name="Widget.DistanceApp.TextView.DistanceValue" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceHeadline3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.DistanceApp.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/card_view_corner_radius</item>
+        <item name="cardElevation">@dimen/card_view_elevation</item>
+    </style>
 
 </resources>

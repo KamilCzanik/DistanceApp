@@ -3,5 +3,5 @@
     <string name="starting_station_input_hint">Starting station</string>
     <string name="final_station_input_hint">Final station</string>
     <string name="calculate_distance_toolbar_title">Calculate distance</string>
-    <string name="calculate_distance_button">Calculate</string>
+    <string name="distance_in_kilometers">%s km</string>
 </resources>

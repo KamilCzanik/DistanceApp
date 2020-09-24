@@ -1,81 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".distance.StationsDistanceFragment"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@id/appbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <data>
+
+        <variable
+            name="calculateDistanceViewModel"
+            type="xyz.czanik.distanceapp.distance.DistanceContract.CalculateDistanceViewModel"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".distance.StationsDistanceFragment"
         >
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@id/appbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:title="@string/calculate_distance_toolbar_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/calculate_distance_toolbar_title"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/startStationInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/starting_station_input_hint"
+            app:endIconMode="dropdown_menu"
+            tools:ignore="missingConstraints"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/startStationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/endStationInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/final_station_input_hint"
+            app:endIconMode="dropdown_menu"
+            tools:ignore="missingConstraints"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/endStationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/inputFlow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            app:constraint_referenced_ids="startStationInputLayout, endStationInputLayout"
+            app:flow_maxElementsWrap="1"
+            app:flow_verticalGap="8dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
             />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/startStationInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/starting_station_input_hint"
-        app:endIconMode="dropdown_menu"
-        tools:ignore="missingConstraints"
-        >
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@{calculateDistanceViewModel.distance.distanceInKilometers == null ? null : @string/distance_in_kilometers(calculateDistanceViewModel.distance.distanceInKilometers).toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputFlow"
             />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/endStationInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/final_station_input_hint"
-        app:endIconMode="dropdown_menu"
-        tools:ignore="missingConstraints"
-        >
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/calculateDistanceButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/calculate_distance_button"
-        tools:ignore="missingConstraints"
-        />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        app:constraint_referenced_ids="startStationInputLayout, endStationInputLayout, calculateDistanceButton"
-        app:flow_maxElementsWrap="1"
-        app:flow_verticalGap="8dp"
-        app:flow_wrapMode="chain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar"
-        />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

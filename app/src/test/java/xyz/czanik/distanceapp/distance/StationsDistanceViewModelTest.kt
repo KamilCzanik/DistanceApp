@@ -18,7 +18,7 @@ import xyz.czanik.distanceapp.entities.Keyword
 import xyz.czanik.distanceapp.entities.Location
 import xyz.czanik.distanceapp.entities.Station
 
-class DistanceViewModelTest {
+class StationsDistanceViewModelTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -38,7 +38,7 @@ class DistanceViewModelTest {
     private val getKeywordsUseCase: UseCase<GetKeywordsRequest, GetKeywordsResponse> = mock {
         on { invoke(any()) } doReturn Single.just(GetKeywordsResponse(keywords))
     }
-    private val viewModel = DistanceViewModel(getStationsUseCase, getKeywordsUseCase)
+    private val viewModel = StationsDistanceViewModel(getStationsUseCase, getKeywordsUseCase)
 
     @Test
     fun `test viewModel interacts with useCases`() {

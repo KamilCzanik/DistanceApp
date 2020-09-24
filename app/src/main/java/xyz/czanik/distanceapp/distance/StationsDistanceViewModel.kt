@@ -13,7 +13,7 @@ import xyz.czanik.distanceapp.distance.DistanceContract.StationViewModel
 import xyz.czanik.distanceapp.entities.Keyword
 import xyz.czanik.distanceapp.entities.Station
 
-class DistanceViewModel(
+class StationsDistanceViewModel(
     getStationsUseCase: UseCase<GetStationsRequest, GetStationsResponse>,
     getKeywordsUseCase: UseCase<GetKeywordsRequest, GetKeywordsResponse>
 ) : ViewModel(), SearchViewModel {

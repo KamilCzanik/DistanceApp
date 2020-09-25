@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,16 +30,27 @@ class StationsDistanceFragment : Fragment() {
         root
     }
 
-    private fun FragmentStationsDistanceBinding.setUpStationsSelection() {
-        startStationInput.doOnTextChanged { _, _, _, _ -> distanceViewModel.startStationSelected(null) }
-        startStationInput.setOnItemClickListener { _, _, _, id -> distanceViewModel.startStationSelected(Station.Id(id.toInt())) }
-        endStationInput.doOnTextChanged { _, _, _, _ -> distanceViewModel.endStationSelected(null) }
-        endStationInput.setOnItemClickListener { _, _, _, id -> distanceViewModel.endStationSelected(Station.Id(id.toInt())) }
-    }
-
     private fun FragmentStationsDistanceBinding.setUpStationsSearch() {
         startStationInput.setAdapter(SearchAdapter(searchViewModel))
         endStationInput.setAdapter(SearchAdapter(searchViewModel))
+    }
+
+    private fun FragmentStationsDistanceBinding.setUpStationsSelection() {
+        startStationInput.onStationSelectionChanged(distanceViewModel::startStationSelected)
+        endStationInput.onStationSelectionChanged(distanceViewModel::endStationSelected)
+    }
+
+    private fun AutoCompleteTextView.onStationSelectionChanged(stationSelectedConsumer: (Station.Id?) -> Unit) {
+        clearSelectionOnTextChanged(stationSelectedConsumer)
+        onStationSelectedListener(stationSelectedConsumer)
+    }
+
+    private fun AutoCompleteTextView.clearSelectionOnTextChanged(stationSelectedConsumer: (Station.Id?) -> Unit) {
+        doOnTextChanged { _, _, _, _ -> stationSelectedConsumer(null) }
+    }
+
+    private fun AutoCompleteTextView.onStationSelectedListener(stationSelectedConsumer: (Station.Id?) -> Unit) {
+        setOnItemClickListener { _, _, _, id -> stationSelectedConsumer(Station.Id(id.toInt())) }
     }
 
     private fun factory() = DistanceAppViewModelFactory(container().repositoriesFactory)

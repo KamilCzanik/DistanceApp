@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import xyz.czanik.distanceapp.UseCase
 import xyz.czanik.distanceapp.distance.DistanceContract.CalculateDistanceViewModel.DistanceViewModel
+import xyz.czanik.distanceapp.distance.DistanceContract.StationSearchablesSource.StationSearchable
 import xyz.czanik.distanceapp.entities.Distance
 import xyz.czanik.distanceapp.entities.DistanceUnit
 import xyz.czanik.distanceapp.entities.Location
@@ -23,9 +24,9 @@ class CalculateStationsDistanceViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
     private val searchables = listOf(
-        DistanceContract.StationSearchablesSource.StationSearchable(dummyStation(1, "WW Gdanska", 1.2, 3.4), "def"),
-        DistanceContract.StationSearchablesSource.StationSearchable(dummyStation(2, "WW Centralna", 5.6, 7.8), "ghi"),
-        DistanceContract.StationSearchablesSource.StationSearchable(dummyStation(3, "WW Praga", 9.10, 10.11), "abc")
+        StationSearchable(dummyStation(1, "WW Gdanska", 1.2, 3.4), "def"),
+        StationSearchable(dummyStation(2, "WW Centralna", 5.6, 7.8), "ghi"),
+        StationSearchable(dummyStation(3, "WW Praga", 9.10, 10.11), "abc")
     )
     private val source: DistanceContract.StationSearchablesSource = mock {
         on { stationSearchables } doReturn Observable.just(searchables)

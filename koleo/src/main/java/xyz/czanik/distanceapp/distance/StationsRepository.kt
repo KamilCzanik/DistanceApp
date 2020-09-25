@@ -13,7 +13,6 @@ internal class StationsRepository(
     override fun get(): Single<List<Station>> = koleoService
             .allStations()
             .subscribeOn(Schedulers.io())
-            //.map { it.take(100) }
             .map(::toDomainStations)
 
     private fun toDomainStations(koleoStations: List<KoleoStation>): List<Station> = koleoStations.map(::toDomainStation)

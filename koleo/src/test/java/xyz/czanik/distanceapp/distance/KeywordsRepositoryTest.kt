@@ -11,9 +11,9 @@ import xyz.czanik.distanceapp.entities.Station
 
 class KeywordsRepositoryTest {
 
-    private val koleoStationsSubject = SingleSubject.create<List<KoleoKeyword>>()
+    private val koleoKeywordsSubject = SingleSubject.create<List<KoleoKeyword>>()
     private val service: KoleoService = mock {
-        on { allKeywords() } doReturn koleoStationsSubject
+        on { allKeywords() } doReturn koleoKeywordsSubject
     }
     private val repository = KeywordsRepository(service)
 
@@ -31,7 +31,7 @@ class KeywordsRepositoryTest {
     @Test
     fun `test repository maps response to domain Stations`() {
         val repositoryTester = repository.get().test()
-        koleoStationsSubject.onSuccess(stubResponse())
+        koleoKeywordsSubject.onSuccess(stubResponse())
         val expected = listOf(Keyword(Station.Id(1), "gdanska"), Keyword(Station.Id(2), "centralna"))
         repositoryTester.assertValue(expected)
     }
@@ -40,7 +40,7 @@ class KeywordsRepositoryTest {
     fun `test repository forwards error from service`() {
         val repositoryTester = repository.get().test()
         val error = Throwable(":(")
-        koleoStationsSubject.onError(error)
+        koleoKeywordsSubject.onError(error)
         repositoryTester.assertError(error)
     }
 

@@ -7,7 +7,7 @@ class DistanceApp : Application(), Container {
     override lateinit var repositoriesFactory: RepositoriesFactory
 
     override fun onCreate() {
-        repositoriesFactory = KoleoRepositoriesFactory()
+        repositoriesFactory = KoleoRepositoriesFactory(this)
         super.onCreate()
     }
 }
